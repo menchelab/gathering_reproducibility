@@ -9,6 +9,7 @@ import logging
 import umap
 import gc
 import os
+import python-igraph
 
 from arboreto.utils import load_tf_names
 from arboreto.algo import grnboost2
