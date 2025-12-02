@@ -10,6 +10,8 @@ import umap
 import gc
 import os
 
+from fa2_modified import ForceAtlas2
+
 from arboreto.utils import load_tf_names
 from arboreto.algo import grnboost2
 
