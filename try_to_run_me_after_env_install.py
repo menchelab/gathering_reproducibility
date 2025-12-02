@@ -13,12 +13,7 @@ import os
 from arboreto.utils import load_tf_names
 from arboreto.algo import grnboost2
 
-from ctxcore.rnkdb import FeatherRankingDatabase as RankingDatabase
-from pyscenic.utils import modules_from_adjacencies
-from pyscenic.prune import prune2df, df2regulons
-from pyscenic.aucell import aucell
-from distributed import Client, LocalCluster
-
+import matplotlib
 
 success_message = '''
 ........................................................................................................................................
