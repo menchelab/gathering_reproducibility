@@ -18,3 +18,40 @@ Once you managed to install the environment with `uv` you can try to create a co
 4. Run the container and try to execute `try_to_run_me_after_env_install.py` again
 
 # Happy reproducing :)
+# My solution
+## Environment conversion
+The easiest way for me to do the following
+```bash
+git clone git@github.com:menchelab/gathering_reproducibility.git
+cd gathering_reproducibility
+uv init
+# this is necessary to ensure correct python version
+# because for me the default was the system wide which was not compatible with conda
+uv python install 3.12
+uv python pin 3.12
+uv run try_to_run_me_after_env_install.py
+```
+On my mac it was also necessary to add the commented out settings to the pyproject.toml in order to get the correct torch wheel
+## Build a docker image
+To build a docker image it is necessary get a linux distribution of your choice and then follow [the instructions in the docs](https://docs.astral.sh/uv/guides/integration/docker/)
+The `Dockerfile` contains the final build script that worked for me on my mac with Docker Desktop with some explanatory comments. After building it via the docker cli
+```bash
+cd gathering_reproducibility
+docker build .
+```
+you can run the container with the directory mounted as follows
+```bash
+docker run -it -v <path_to_gathering_repo>:<absolute_path_to_directory_in_container> <image_hash>
+```
+After starting up you can then just navigate to <absolute_path_to_directory_in_container> and use `python try_to_run_me_after_env_install.py` to run the script.
+Here <path_to_gathering_repo> is the directory the repo resided on your computer and <absolute_path_to_directory_in_container> is the directory you want the repo to show up in your container session.
+e.g. I used the following `-v ~/gathering_reproducibility:/workdir` (path has to be absolute after the colon) which allowed me to do the following after startup
+```bash
+cd workdir
+python try_to_run_me_after_env_install.py
+```
+
+Also please not that the image is quite large because the environment is also quite large. I tried to solve it with a multistage build but it did not result in a notable size reduction. Maybe there are more
+advanced techniques but I am too lazy to do more here :)
+
+
