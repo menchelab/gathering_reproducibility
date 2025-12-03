@@ -1,5 +1,5 @@
 # get some linux distribution
-FROM ubuntu:resolute-20251130 AS build
+FROM ubuntu:resolute-20251130
 
 # copy uv specific things and uv to image
 COPY uv.lock .
