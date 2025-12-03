@@ -19,4 +19,5 @@ RUN uv python install 3.12 && \
 # set env so we can use python as is
 ENV PATH=/.venv/bin:$PATH
 
+# set entrypoint to default shell
 CMD ["/bin/bash"]
